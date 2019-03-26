@@ -1,4 +1,4 @@
-//write your code here to make the tests pass
+//my code
 
 class Cleaner {
     constructor(name) {
