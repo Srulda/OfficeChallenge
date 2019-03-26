@@ -1,24 +1,64 @@
+//write your code here to make the tests pass
 
-$("button").on("click", function () {
-    let address = $("#addr-input").val()
-    let minPrice = $("#min-p-input").val()
-    let maxPrice = $("#max-p-input").val()
-    let minRooms = $("#min-r-input").val()
-    let maxRooms = $("#max-r-input").val()
-    let immediate = $("#immed-y")
-
-    let relevantApts = findRelevantApts(address, minPrice, maxPrice, minRooms, maxRooms, immediate)
-    renderApts(relevantApts)
-})
-
-const renderApts = function (apartments) {
-    $("#results").empty()
-    console.log(apartments) //array of apartments to render
-    //Your code goes here.
-    let source = $("#apartment-template").html()
-    let template = Handlebars.compile(source)
-    let newHTML = template({apartments})
-    $("#results").append(newHTML)
+class Cleaner {
+    constructor(name) {
+        this.name = name
+    }
+    clean() {
+        console.log("Clean")
+    }
 }
 
-renderApts(apartments) //renders apartments when page loads
+class Document {
+    constructor(EmployeeName) {
+        this.EmployeeName = EmployeeName
+    }
+}
+
+class Employee {
+    constructor(name) {
+        this.name = name
+    }
+    work(office) {
+        for (let i = 0; i < 10; i++) {
+            office.documents.push(new Document(this.name))
+        }
+    }
+}
+
+class Manager {
+    constructor(name) {
+        this.name = name
+        this.employees = []
+    }
+    hireEmployee(name) {
+        this.employees.push(new Employee(name))
+    }
+    askEmployeesToWork(office) {
+        for (let emp of this.employees) {
+            emp.work(office)
+        }
+    }
+}
+
+class Office {
+    constructor() {
+        this.documents = []
+        this.managers = []
+        this.cleaners = []
+    }
+    hireManager(name) {
+        this.managers.push(new Manager(name))
+    }
+    hireCleaner(name) {
+        this.cleaners.push(new Cleaner(name))
+    }
+    startWorkDay() {
+        for (let man of this.managers) {
+            man.askEmployeesToWork(this)
+        }
+        for (let cln of this.cleaners) {
+            cln.Clean()
+        }
+    }
+}
